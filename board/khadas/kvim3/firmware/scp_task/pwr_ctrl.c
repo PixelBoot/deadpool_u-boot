@@ -181,16 +181,6 @@ static void i2c_send(unsigned char data)
 	_udelay(3);
 }
 
-static void power_off_at_mcu(unsigned int shutdown)
-{
-	if(shutdown == 0) {
-		i2c_start();
-		i2c_send(0x30);
-		i2c_send(0x80);
-		i2c_send(0x01);
-		i2c_stop();
-	}
-}
 void get_wakeup_source(void *response, unsigned int suspend_from)
 {
 	struct wakeup_info *p = (struct wakeup_info *)response;
@@ -281,7 +271,7 @@ static unsigned int detect_key(unsigned int suspend_from)
 
 		if (suspend_from) {
 			if (!(readl(PREG_PAD_GPIO4_I) & (0x01 << 14))) {
-				exit_reason = WOL_WAKEUP;
+				exit_reason = CEC_WAKEUP;
 			}
 		}
 
@@ -296,7 +286,6 @@ static unsigned int detect_key(unsigned int suspend_from)
 
 static void pwr_op_init(struct pwr_op *pwr_op)
 {
-	pwr_op->power_off_at_mcu = power_off_at_mcu;
 	pwr_op->power_off_at_24M = power_off_at_24M;
 	pwr_op->power_on_at_24M = power_on_at_24M;
 	pwr_op->detect_key = detect_key;
