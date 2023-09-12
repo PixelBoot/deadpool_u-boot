@@ -102,40 +102,6 @@ static void power_on_at_24M(unsigned int suspend_from)
 
 }
 
-static void set_gpio_level(int pin, int high)
-{
-	//pin 0: sda 1: scl
-	if (pin == 1)
-	{
-		if (high == 1)
-		{
-			writel(readl(AO_GPIO_O) | (1 << 2), AO_GPIO_O);
-			writel(readl(AO_GPIO_O_EN_N) & (~(1 << 2)), AO_GPIO_O_EN_N);
-		}
-		else
-		{
-			writel(readl(AO_GPIO_O) & (~(1 << 2)), AO_GPIO_O);
-			writel(readl(AO_GPIO_O_EN_N) & (~(1 << 2)), AO_GPIO_O_EN_N);
-		}
-	writel(readl(AO_RTI_PIN_MUX_REG) & (~(0xf << 8)), AO_RTI_PIN_MUX_REG);
-	}
-	else
-
-	{
-		if (high == 1)
-		{
-			writel(readl(AO_GPIO_O) | (1 << 3), AO_GPIO_O);
-			writel(readl(AO_GPIO_O_EN_N) & (~(1 << 3)), AO_GPIO_O_EN_N);
-		}
-		else
-		{
-			writel(readl(AO_GPIO_O) & (~(1 << 3)), AO_GPIO_O);
-			writel(readl(AO_GPIO_O_EN_N) & (~(1 << 3)), AO_GPIO_O_EN_N);
-		}
-	writel(readl(AO_RTI_PIN_MUX_REG) & (~(0xf << 12)), AO_RTI_PIN_MUX_REG);
-	}
-}
-
 void get_wakeup_source(void *response, unsigned int suspend_from)
 {
 	struct wakeup_info *p = (struct wakeup_info *)response;
