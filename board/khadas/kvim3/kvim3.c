@@ -641,33 +641,6 @@ U_BOOT_DEVICES(meson_pwm) = {
 };
 #endif /*end CONFIG_PWM_MESON*/
 
-#if (defined (CONFIG_AML_LCD) && defined(CONFIG_TCA6408))
-// detect whether the LCD is exist
-extern int khadas_mipi_id;
-void board_lcd_detect(void)
-{
-    u8 mask = 0, value = 0;
-    int ret = 0;
-
-    // detect RESET pin
-    // if the LCD is connected, the RESET pin will be plll high
-    // if the LCD is not connected, the RESET pin will be low
-    mask = TCA_LCD_RESET_MASK;
-
-    ret = tca6408_get_value(&value, mask);
-    if (ret) {
-       printf("%s: failed to read LCD_RESET status! error: %d\n", __func__, ret);
-       return;
-    }
-
-	if (khadas_mipi_id == 2) {//TS101
-		value = 1;
-	}
-
-    printf("LCD_RESET PIN: %d\n", value);
-    setenv_ulong("lcd_exist", value);
-}
-#endif /* CONFIG_AML_LCD */
 void ext_board_detect(void)
 {
         int val;
