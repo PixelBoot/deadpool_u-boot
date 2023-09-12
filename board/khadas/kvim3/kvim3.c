@@ -793,12 +793,6 @@ int board_late_init(void)
 #ifdef CONFIG_AML_CVBS
 	run_command("cvbs init", 0);
 #endif
-#ifdef CONFIG_AML_LCD
-#ifdef CONFIG_TCA6408
-        board_lcd_detect();
-#endif
-	lcd_probe();
-#endif
 	ext_board_detect();
 
 //enable Lcd VCC
