@@ -63,9 +63,6 @@
 #include <amlogic/spicc.h>
 #endif
 #include <asm/arch/timer.h>
-#ifdef CONFIG_TCA6408
-#include <khadas_tca6408.h>
-#endif
 #ifdef CONFIG_POWER_FUSB302
 #include <fusb302.h>
 #endif
@@ -721,9 +718,6 @@ int board_init(void)
 #ifdef CONFIG_SYS_I2C_AML
 	board_i2c_init();
 	check_forcebootsd();
-#endif
-#ifdef CONFIG_TCA6408
-        tca6408_gpio_init();
 #endif
 	/* power on GPIOZ_5 : CMD_VDD_EN */
 	clrbits_le32(PREG_PAD_GPIO4_EN_N, (1 << 5));
