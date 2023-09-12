@@ -394,7 +394,6 @@ static void board_i2c_init(void)
 
 	//Amlogic I2C controller initialized
 	//note: it must be call before any I2C operation
-	i2c_plat_init();
 	aml_i2c_init();
 
 	udelay(10);
