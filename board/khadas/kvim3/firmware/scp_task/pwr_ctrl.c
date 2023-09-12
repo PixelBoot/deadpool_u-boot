@@ -136,51 +136,6 @@ static void set_gpio_level(int pin, int high)
 	}
 }
 
-static void i2c_start(void)
-{
-	set_gpio_level(0, 1); //sda high
-	_udelay(1);
-	set_gpio_level(1, 1); //scl high
-	_udelay(1);
-	set_gpio_level(0, 0); //sda low
-	_udelay(1);
-}
-
-static void i2c_stop(void)
-{
-	set_gpio_level(1, 0); //scl low
-	_udelay(2);
-	set_gpio_level(1, 1); //scl high
-	_udelay(2);
-	set_gpio_level(0, 0); //sda low
-	_udelay(2);
-	set_gpio_level(0, 1); //sda high
-	_udelay(1);
-}
-
-static void i2c_send(unsigned char data)
-{
-	unsigned char i = 0;
-	for(; i < 8 ; i++)
-	{
-		set_gpio_level(1, 0); //scl low
-		_udelay(1);
-		if (data & 0x80)
-			set_gpio_level(0, 1); //sda high
-		else
-			set_gpio_level(0, 0); //sda low
-		data <<= 1;
-		_udelay(1);
-		set_gpio_level(1, 1); //scl high
-		_udelay(1);
-	}
-	_udelay(3);
-	set_gpio_level(1, 0);
-	_udelay(2);
-	set_gpio_level(1, 1);
-	_udelay(3);
-}
-
 void get_wakeup_source(void *response, unsigned int suspend_from)
 {
 	struct wakeup_info *p = (struct wakeup_info *)response;
