@@ -368,7 +368,7 @@ static void board_i2c_set_pinmux(void){
 	clrbits_le32(P_AO_RTI_PINMUX_REG0, ((1<<12)|(1<<13)|(1<<14)|(1<<15)));
 	//enable I2C MASTER AO pins
 	setbits_le32(P_AO_RTI_PINMUX_REG0,
-	(MESON_I2C_MASTER_AO_GPIOAO_2_BIT | MESON_I2C_MASTER_AO_GPIOAO_3_BIT));
+	(MESON_I2C_MASTER_AO_GPIOAO_4_BIT | MESON_I2C_MASTER_AO_GPIOAO_5_BIT));
 
 	udelay(10);
 };
@@ -381,10 +381,10 @@ struct aml_i2c_platform g_aml_i2c_plat = {
 	.use_pio            = 0,
 	.master_i2c_speed   = AML_I2C_SPPED_400K,
 	.master_ao_pinmux = {
-		.scl_reg    = (unsigned long)MESON_I2C_MASTER_AO_GPIOAO_2_REG,
-		.scl_bit    = MESON_I2C_MASTER_AO_GPIOAO_2_BIT,
-		.sda_reg    = (unsigned long)MESON_I2C_MASTER_AO_GPIOAO_3_REG,
-		.sda_bit    = MESON_I2C_MASTER_AO_GPIOAO_3_BIT,
+		.scl_reg    = (unsigned long)MESON_I2C_MASTER_AO_GPIOAO_4_REG,
+		.scl_bit    = MESON_I2C_MASTER_AO_GPIOAO_4_BIT,
+		.sda_reg    = (unsigned long)MESON_I2C_MASTER_AO_GPIOAO_5_REG,
+		.sda_bit    = MESON_I2C_MASTER_AO_GPIOAO_5_BIT,
 	}
 };
 static void board_i2c_init(void)
